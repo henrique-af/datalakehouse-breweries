@@ -1,1 +1,6 @@
+apache-airflow==2.7.3
 requests
+minio
+pyspark==3.3.2
+boto3==1.28.57
+pytest==7.0.0
