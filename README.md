@@ -23,7 +23,6 @@ The pipeline adheres to the Medallion Architecture:
 *   **MinIO:** Provides S3-compatible object storage for the Bronze, Silver, and Gold data layers.
 *   **PostgreSQL:** Stores aggregated Gold layer data for analytical querying.
 *   **Docker:** Containerizes the application for portability and consistency.
-*   **Docker Compose:** Defines and manages multi-container Docker applications.
 
 ## Prerequisites
 
@@ -34,8 +33,8 @@ The pipeline adheres to the Medallion Architecture:
 1.  **Clone the repository:**
 
     ```bash
-    git clone https://github.com/your-github-username/brewery-data-pipeline.git
-    cd brewery-data-pipeline
+    git clone https://github.com/henrique-af/datalakehouse-breweries.git
+    cd datalakehouse-breweries
     ```
 
 2.  **Start the services using Docker Compose:**
@@ -57,7 +56,7 @@ The pipeline adheres to the Medallion Architecture:
 4.  **Activate the DAG:**
 
     *   Log in to the Airflow web interface.
-    *   Locate the `brewery_test` DAG in the list of DAGs.
+    *   Locate the `brewery_API_pipeline` DAG in the list of DAGs.
     *   Toggle the switch in the `On/Off` column to enable the DAG.
 
 ## Access Credentials
