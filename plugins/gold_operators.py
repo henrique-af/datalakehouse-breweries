@@ -3,7 +3,6 @@ from airflow.utils.decorators import apply_defaults
 import psycopg2
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import count
-from minio import Minio
 
 class EnsurePostgresSchemaOperator(BaseOperator):
     """

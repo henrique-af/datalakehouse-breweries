@@ -37,7 +37,6 @@ class APIExtractorOperator(BaseOperator):
             
             data = response.json()
             if not data:
-                # If no data is returned, end the loop
                 break
             
             all_data.extend(data)

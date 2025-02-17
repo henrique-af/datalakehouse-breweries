@@ -41,6 +41,8 @@ default_args = {
     "owner": "Henrique",
     "start_date": datetime(2024, 10, 1),
     "retry_delay": timedelta(minutes=5),
+    "depends_on_past": False,
+    "max_active_runs": 1,
     "retries": 3,
 }
 
@@ -62,7 +64,7 @@ with DAG(
         response_check=lambda response: response.status_code == 200,
         timeout=30,
         poke_interval=10,
-        mode="reschedule",
+        mode="poke",
     )
 
     # Task 2: Ensure MinIO buckets exist

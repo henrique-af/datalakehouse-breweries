@@ -15,7 +15,7 @@ class EnsureBucketsExistOperator(BaseOperator):
         minio_endpoint,
         minio_access_key,
         minio_secret_key,
-        buckets,  # Pass a list of bucket names
+        buckets, 
         *args,
         **kwargs
     ):

@@ -46,7 +46,7 @@ class GetLatestFileFromBronzeOperator(BaseOperator):
             self.minio_endpoint,
             access_key=self.minio_access_key,
             secret_key=self.minio_secret_key,
-            secure=False  # Set to True if using HTTPS
+            secure=False
         )
 
         # List all objects in the source bucket, ignoring the 'processed/' folder
@@ -63,7 +63,7 @@ class GetLatestFileFromBronzeOperator(BaseOperator):
         # Extract the filename of the most recent object
         most_recent_file = most_recent_object.object_name if most_recent_object else None
 
-        # Push the filename to XCom for downstream tasks
+        # Push the filename
         context['ti'].xcom_push(key='most_recent_file', value=most_recent_file)
 
         return most_recent_file
@@ -127,7 +127,6 @@ class TransformBronzeToSilverOperator(BaseOperator):
 
             # Read data from the most recent JSON file
             bronze_data = spark.read.json(f"s3a://{self.source_bucket}/{most_recent_file}")
-            self.log.info(f"Bronze: {bronze_data}")
 
             # Transform the JSON data into a curated Silver format
             silver_data = self._transform_to_silver(bronze_data)
@@ -153,7 +152,7 @@ class TransformBronzeToSilverOperator(BaseOperator):
             self.minio_endpoint,
             access_key=self.minio_access_key,
             secret_key=self.minio_secret_key,
-            secure=False # Set to True if using HTTPS
+            secure=False
         )
 
         # List all objects in the source bucket
@@ -262,7 +261,7 @@ class MoveFileToProcessedOperator(BaseOperator):
                 break
 
         if not processed_folder_exists:
-            client.put_object(self.source_bucket, "processed/", BytesIO(b""), 0)  # Create empty folder
+            client.put_object(self.source_bucket, "processed/", BytesIO(b""), 0)
             self.log.info("Created 'processed' folder in the Bronze bucket.")
 
         # Move the file
