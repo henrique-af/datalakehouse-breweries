@@ -43,6 +43,7 @@ class DataQualityOperator(BaseOperator):
         spark = (
             SparkSession.builder
             .appName("DataQualityCheck")
+            .config("spark.master", "spark://spark-master:7077")
             .config("spark.jars.packages", "org.apache.hadoop:hadoop-aws:3.3.1")
             .config("spark.hadoop.fs.s3a.endpoint", f"http://{self.minio_endpoint}")
             .config("spark.hadoop.fs.s3a.access.key", self.minio_access_key)

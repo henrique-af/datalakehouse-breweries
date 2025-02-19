@@ -137,6 +137,7 @@ class AggregateSilverToGoldOperator(BaseOperator):
         """
         return (
             SparkSession.builder.appName("AggregateSilverToGold")
+            .config("spark.master", "spark://spark-master:7077")
             .config("spark.jars.packages", "org.apache.hadoop:hadoop-aws:3.3.1")
             .config("spark.hadoop.fs.s3a.endpoint", f"http://{minio_endpoint}")
             .config("spark.hadoop.fs.s3a.access.key", minio_access_key)
@@ -237,6 +238,7 @@ class WriteGoldToPostgresOperator(BaseOperator):
         return (
             SparkSession.builder.appName("WriteGoldToPostgres")
             .config("spark.jars.packages", "org.apache.hadoop:hadoop-aws:3.3.1,org.postgresql:postgresql:42.2.18")
+            .config("spark.master", "spark://spark-master:7077")
             .config("spark.hadoop.fs.s3a.endpoint", f"http://{minio_endpoint}")
             .config("spark.hadoop.fs.s3a.access.key", minio_access_key)
             .config("spark.hadoop.fs.s3a.secret.key", minio_secret_key)

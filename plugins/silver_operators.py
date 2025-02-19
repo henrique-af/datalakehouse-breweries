@@ -175,6 +175,7 @@ class TransformBronzeToSilverOperator(BaseOperator):
         return (
             SparkSession.builder
             .appName("ProcessSilverLayer")
+            .config("spark.master", "spark://spark-master:7077")
             .config("spark.jars.packages", "org.apache.hadoop:hadoop-aws:3.3.1")
             .config("spark.hadoop.fs.s3a.endpoint", f"http://{self.minio_endpoint}")
             .config("spark.hadoop.fs.s3a.access.key", self.minio_access_key)
@@ -182,7 +183,7 @@ class TransformBronzeToSilverOperator(BaseOperator):
             .config("spark.hadoop.fs.s3a.path.style.access", "true")
             .config("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
             .getOrCreate()
-            )
+        )
 
     @staticmethod
     def _transform_to_silver(df):
